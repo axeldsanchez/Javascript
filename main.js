@@ -1,3 +1,42 @@
+function mostrar(valorAMostrar) {
+    alert(valorAMostrar);
+}
+
+function solicitarAlUsuario(loSolicitado) {
+    return prompt("Por favor ingresá: " + loSolicitado);
+}
+
+const ProductoOne = {
+    name: "productName",
+    price: 20000,
+};
+
+const ProductoTwo = {
+    name: "productName",
+    price: 20000,
+};
+
+const ProductoThree = {
+    name: "productName",
+    price: 20000,
+};
+
+const Compra = {
+    productoOne: {},
+    productoTwo: {},
+    productoThree: {},
+    finalPrice: 0,
+
+    calculateFinalPrice: function () {
+        this.finalPrice = parseInt(this.productoOne.price) + parseInt(this.productoTwo.price) + parseInt(this.productoThree.price);
+    },
+
+    showTicket: function () {
+        this.calculateFinalPrice();
+        mostrar("El costo total de los Servicios contratados es de $" + this.finalPrice);
+    },
+};
+
 let nombre = prompt("Ingrese el nombre");
 let apellido = prompt("Ingrese el apellido");
 
@@ -17,19 +56,19 @@ if (nombre == "" || apellido == "") {
         numero = parseInt(prompt("Ingrese el numero nuevamente"))
     }
 
-    for (let i = 1; i <= numero; i++) {
-        let servicio = prompt("Ingrese el nombre del servicio");
-        alert(`Eligio el servicio de ${servicio}`);
-    }
-
-    let precio = 20000
-
-    function multiplicar(n1, n2) {
-        resultado = n1 * n2;
-    }
-
-    multiplicar(numero, precio)
-    alert(`El costo total de los Servicios contratados es de $ ${resultado}`)
+    let nombreProductoUno = solicitarAlUsuario("el nombre del primer Servicio");
+    let nombreProductoDos = solicitarAlUsuario("el nombre del segundo Servicio");
+    let nombreProductoTres = solicitarAlUsuario("el nombre del segundo Servicio");
+    
+    ProductoOne.name = nombreProductoUno;
+    Compra.productoOne = ProductoOne;
+    
+    ProductoTwo.name = nombreProductoDos;
+    Compra.productoTwo = ProductoTwo;
+    
+    ProductoThree.name = nombreProductoTres;
+    Compra.productoThree = ProductoThree;
+    
+    
+    Compra.showTicket();
 }
-
-
