@@ -2,53 +2,41 @@ function mostrar(valorAMostrar) {
     alert(valorAMostrar);
 }
 
-function solicitarAlUsuario(loSolicitado) {
-    return prompt("Por favor ingresá: " + loSolicitado);
-}
+const servicios = [
+    { id: 1, nombre: "auditoria", precio: 15000 },
+    { id: 2, nombre: "consultoria", precio: 20000 },
+    { id: 3, nombre: "impuestos", precio: 30000 },
+]
 
-const ProductoOne = {
-    name: "productName",
-    price: 20000,
-};
 
-const ProductoTwo = {
-    name: "productName",
-    price: 20000,
-};
+let nombreCliente = prompt("Ingrese el nombre");
+let apellidoCliente = prompt("Ingrese el apellido");
 
-const ProductoThree = {
-    name: "productName",
-    price: 20000,
-};
+if (nombreCliente == "" || apellidoCliente == "") {
 
-const Compra = {
-    productoOne: {},
-    productoTwo: {},
-    productoThree: {},
-    finalPrice: 0,
-
-    calculateFinalPrice: function () {
-        this.finalPrice = parseInt(this.productoOne.price) + parseInt(this.productoTwo.price) + parseInt(this.productoThree.price);
-    },
-
-    showTicket: function () {
-        this.calculateFinalPrice();
-        mostrar("El costo total de los Servicios contratados es de $" + this.finalPrice);
-    },
-};
-
-let nombre = prompt("Ingrese el nombre");
-let apellido = prompt("Ingrese el apellido");
-
-if (nombre == "" || apellido == "") {
-
-    alert("Ingrese Nombre y Apellido completo")
+    mostrar("Ingrese Nombre y Apellido completo")
 
 } else {
 
-    alert(`Bienvenido ${nombre} ${apellido}`);
+    mostrar(`Bienvenido ${nombreCliente} ${apellidoCliente}`);
 
-    let numero = parseInt(prompt("Ingrese la cantidad de servicios que va a contratar. La empresa ofrece solo 3 servicios: Auditoría, Consultoría e Impuestos. El costo de cada servicio es de $20.000"));
+    let nombre = prompt("La empresa ofrece solo 3 tipos de sercivios: Auditoria, Consultoria e impuestos. Busque el precio del servicio que desea contratar").toLowerCase();
+
+    const encontrado = servicios.find(item => item.nombre.includes(nombre));
+
+    if (encontrado) {
+        let mensaje = `
+    Nombre del servicio consultado: ${encontrado.nombre}
+    Precio del servicio consultado: $${encontrado.precio}
+    `;
+
+        alert(mensaje);
+
+    } else {
+        alert("Servicio no encontrado")
+    };
+
+    let numero = parseInt(prompt("Ingrese la cantidad de servicios que va a contratar. Máximo 3 servicios."));
 
     while (numero > 3) {
 
@@ -56,19 +44,59 @@ if (nombre == "" || apellido == "") {
         numero = parseInt(prompt("Ingrese el numero nuevamente"))
     }
 
-    let nombreProductoUno = solicitarAlUsuario("el nombre del primer Servicio");
-    let nombreProductoDos = solicitarAlUsuario("el nombre del segundo Servicio");
-    let nombreProductoTres = solicitarAlUsuario("el nombre del segundo Servicio");
-    
-    ProductoOne.name = nombreProductoUno;
-    Compra.productoOne = ProductoOne;
-    
-    ProductoTwo.name = nombreProductoDos;
-    Compra.productoTwo = ProductoTwo;
-    
-    ProductoThree.name = nombreProductoTres;
-    Compra.productoThree = ProductoThree;
-    
-    
-    Compra.showTicket();
+    if (numero === 1) {
+
+        let nombreServicioUno = prompt("Ingrese el nombre del unico Servicio contratado");
+
+        const compraUno = servicios.find(item => item.nombre.includes(nombreServicioUno));
+
+        if (compraUno) {
+            let msj = `
+            Gracias por su compra.
+            El precio total es de: $${compraUno.precio}
+             `;
+
+            mostrar(msj);
+        } else {
+            mostrar("Servicio no encontrado")
+        };
+    } else if (numero === 2) {
+
+        let nombreServicioDos1 = prompt("Ingrese el nombre del primer Servicio contratado");
+        let nombreServicioDos2 = prompt("Ingrese el nombre del segundo Servicio contratado");
+
+        const compraDos1 = servicios.find(item => item.nombre.includes(nombreServicioDos1));
+        const compraDos2 = servicios.find(item => item.nombre.includes(nombreServicioDos2));
+
+        if (compraDos1 && compraDos2) {
+            let msj = `
+            Gracias por su compra.
+            El precio total es de $${compraDos1.precio + compraDos2.precio}
+             `;
+
+            mostrar(msj);
+        } else {
+            mostrar("Servicio no encontrado")
+        };
+    } else if (numero === 3) {
+
+        let nombreServicioTres1 = prompt("Ingrese el nombre del primer Servicio contratado");
+        let nombreServicioTres2 = prompt("Ingrese el nombre del segundo Servicio contratado");
+        let nombreServicioTres3 = prompt("Ingrese el nombre del tercer Servicio contratado");
+
+        const compraTres1 = servicios.find(item => item.nombre.includes(nombreServicioTres1));
+        const compraTres2 = servicios.find(item => item.nombre.includes(nombreServicioTres2));
+        const compraTres3 = servicios.find(item => item.nombre.includes(nombreServicioTres3));
+
+        if (compraTres1 && compraTres2 && compraTres3) {
+            let msj = `
+            Gracias por su compra.
+            El precio total es de $${compraTres1.precio + compraTres2.precio + compraTres3.precio}
+             `;
+
+             mostrar(msj);
+        } else {
+            mostrar("Servicio no encontrado")
+        };
+    }
 }
